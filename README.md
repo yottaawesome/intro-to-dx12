@@ -1,4 +1,4 @@
-# d3d12book
+# Introduction to 3D Game Programming with DirectX 12 source
 
 Forked from sample code for the book [Introduction to 3D Game Programming with DirectX 12](http://www.d3dcoder.net/d3d12.htm).
 
