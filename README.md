@@ -6,7 +6,7 @@ Forked and detached from the [sample code repo]((https://github.com/d3dcoder/d3d
 
 ## Changes
 
-All projects hacve been retargeted to use the latest Windows SDK.
+All projects have been retargeted to use the latest Windows SDK.
 
 ## Additional resources
 
