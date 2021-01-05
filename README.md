@@ -2,11 +2,11 @@
 
 ## Introduction
 
-Forked and detached from the [sample code repo]((https://github.com/d3dcoder/d3d12book)) for Frank D. Luna's excellent book [Introduction to 3D Game Programming with DirectX 12](http://www.d3dcoder.net/d3d12.htm). The source code is presented here for convenience (so you don't need to dig up the physical media of the book) and remains the copyright of Frank D. Luna.
+This is a detached fork of the [sample code repo]((https://github.com/d3dcoder/d3d12book)) for Frank D. Luna's excellent book [Introduction to 3D Game Programming with DirectX 12](http://www.d3dcoder.net/d3d12.htm). The source code is presented here for convenience (so you don't need to dig up the physical media of the book) and remains the copyright of Frank D. Luna.
 
 ## Changes
 
-All projects have been retargeted to use the latest Windows SDK.
+All projects have been updated to use Visual Studio 2019 and retargeted to the latest Windows SDK.
 
 ## Additional resources
 
