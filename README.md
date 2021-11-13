@@ -2,11 +2,19 @@
 
 ## Introduction
 
-This is a detached fork of the [sample code repo]((https://github.com/d3dcoder/d3d12book)) for Frank D. Luna's excellent book [Introduction to 3D Game Programming with DirectX 12](http://www.d3dcoder.net/d3d12.htm). The source code is presented here for convenience (so you don't need to dig up the physical media of the book) and remains the copyright of Frank D. Luna.
+This is an unofficial fork of the [sample code repo]((https://github.com/d3dcoder/d3d12book)) for Frank D. Luna's excellent book [Introduction to 3D Game Programming with DirectX 12](http://www.d3dcoder.net/d3d12.htm). The source code is presented here for convenience (so you don't need to dig up the physical media of the book) and remains the copyright of Frank D. Luna.
+
+## Building
+
+You'll need Visual Studio 2022 with the _Desktop development with C++_ and _Game development with C++_ Visual Studio workloads. Once you've satisfied these requirements, you should be able to open any of the included SLN files, build, and run the sample apps. Obviously, you also need to have a GPU that supports DirectX 12 for the samples to work correctly.
 
 ## Changes
 
-All projects have been updated to use Visual Studio 2019 and retargeted to the latest Windows SDK.
+All projects have been updated to use Visual Studio 2022 and retargeted to the latest Windows SDK.
+
+## Considerations
+
+If you're a novice looking to learn game development, this book and repo is probably not the best place to start, and you might be better off looking at resources for building games in Unreal Engine or Unity. This repo is mainly useful for professional and amateur game engine and graphics programmers wanting to learn how to work with DirectX 12. Needless to say, building a 3D game or rendering engine is _a lot of hard work_, and this book really only touches on the DX12 rendering aspect of such an engine, without touching on things like design, sound, gameplay, etc, so don't expect to master game development purely using this resource. 
 
 ## Additional resources
 
