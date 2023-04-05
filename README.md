@@ -24,3 +24,4 @@ If you're a novice looking to learn game development, this book and repo is prob
 * [Jeremiah van Oosten's DirectX 12 tutorial](https://github.com/jpvanoosten/LearningDirectX12/tree/v0.0.1)
 * [Braynzar Soft's DirectX 12 tutorials](https://www.braynzarsoft.net/viewtutorial/q16390-04-directx-12-braynzar-soft-tutorials)
 * [GPUOpen-LibrariesAndSDK's D3D12 sample](https://github.com/GPUOpen-LibrariesAndSDKs/HelloD3D12)
+* [Microsoft's DirectX graphics samples](https://github.com/microsoft/DirectX-Graphics-Samples)
