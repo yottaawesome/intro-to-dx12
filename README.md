@@ -18,10 +18,17 @@ If you're a novice looking to learn game development, this book and repo is prob
 
 ## Additional resources
 
-* [Official site](http://d3dcoder.net/default.htm)
+### General
+* [Official book site](http://d3dcoder.net/default.htm)
 * [Microsoft's DirectX Developer Blog](https://devblogs.microsoft.com/directx/)
+* [Ryosuke's Learning DirectX 12 in 2023](https://whoisryosuke.com/blog/2023/learning-directx-12-in-2023/)
+
+### Guides and tutorials
 * [MSDN's Direct3D 12 Programming Guide](https://docs.microsoft.com/en-us/windows/win32/direct3d12/directx-12-programming-guide)
 * [Jeremiah van Oosten's DirectX 12 tutorial](https://github.com/jpvanoosten/LearningDirectX12/tree/v0.0.1)
 * [Braynzar Soft's DirectX 12 tutorials](https://www.braynzarsoft.net/viewtutorial/q16390-04-directx-12-braynzar-soft-tutorials)
+
+### Samples
 * [GPUOpen-LibrariesAndSDK's D3D12 sample](https://github.com/GPUOpen-LibrariesAndSDKs/HelloD3D12)
 * [Microsoft's DirectX graphics samples](https://github.com/microsoft/DirectX-Graphics-Samples)
+* [Microsoft's XBox ATG samples](https://github.com/microsoft/Xbox-ATG-Samples) and [GDK samples](https://github.com/microsoft/Xbox-GDK-Samples/)
