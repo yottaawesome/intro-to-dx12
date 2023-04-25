@@ -32,3 +32,7 @@ If you're a novice looking to learn game development, this book and repo is prob
 * [GPUOpen-LibrariesAndSDK's D3D12 sample](https://github.com/GPUOpen-LibrariesAndSDKs/HelloD3D12)
 * [Microsoft's DirectX graphics samples](https://github.com/microsoft/DirectX-Graphics-Samples)
 * [Microsoft's XBox ATG samples](https://github.com/microsoft/Xbox-ATG-Samples) and [GDK samples](https://github.com/microsoft/Xbox-GDK-Samples/)
+
+### Related technologies
+
+* [Microsft's DirextXTK12](https://github.com/Microsoft/DirectXTK12) and [samples](https://github.com/walbourn/directxtk-samples)
