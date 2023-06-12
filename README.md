@@ -35,4 +35,4 @@ If you're a novice looking to learn game development, this book and repo is prob
 
 ### Related technologies
 
-* [Microsoft's DirextXTK12](https://github.com/Microsoft/DirectXTK12) and [Chuck Walbourn's samples](https://github.com/walbourn/directxtk-samples)
+* [Microsoft's DirectXTK12](https://github.com/Microsoft/DirectXTK12) and [Chuck Walbourn's samples](https://github.com/walbourn/directxtk-samples)
