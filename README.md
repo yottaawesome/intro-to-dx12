@@ -10,7 +10,7 @@ You'll need Visual Studio 2022 with the _Desktop development with C++_ and _Game
 
 ## Changes
 
-All projects have been updated to use Visual Studio 2022 and retargeted to the latest Windows SDK.
+All projects have been updated to use Visual Studio 2022 and retargeted to the latest Windows SDK. For convenience, an additional solution file AllProjects.sln has been added that includes all the projects.
 
 ## Considerations
 
