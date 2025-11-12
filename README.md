@@ -6,11 +6,11 @@ This is an unofficial fork of the [sample code repo]((https://github.com/d3dcode
 
 ## Building
 
-You'll need Visual Studio 2022 with the _Desktop development with C++_ and _Game development with C++_ Visual Studio workloads. Once you've satisfied these requirements, you should be able to open any of the included SLN files, build, and run the sample apps. Obviously, you also need to have a GPU that supports DirectX 12 for the samples to work correctly.
+You'll need Visual Studio 2026 with the _Desktop development with C++_ and _Game development with C++_ Visual Studio workloads. Once you've satisfied these requirements, you should be able to open any of the included SLN files, build, and run the sample apps. Obviously, you also need to have a GPU that supports DirectX 12 for the samples to work correctly.
 
 ## Changes
 
-All projects have been updated to use Visual Studio 2022 and retargeted to the latest Windows SDK. For convenience, an additional solution file AllProjects.sln has been added that includes all the projects.
+All projects have been updated to use Visual Studio 2026 and retargeted to the latest Windows SDK. For convenience, an additional solution file AllProjects.sln has been added that includes all the projects.
 
 ## Considerations
 
