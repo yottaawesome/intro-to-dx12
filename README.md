@@ -12,6 +12,8 @@ You'll need [Visual Studio 2026](https://visualstudio.microsoft.com/) with the _
 
 All projects have been updated to use Visual Studio 2026 and retargeted to the latest Windows SDK. For convenience, an additional solution file AllProjects.sln has been added that includes all the projects.
 
+The code doesn't compile on MSVC C++20 standard and later modes due to the compiler rejecting passing pointers to temporaries in function calls. I'm working on fixing this in the `fix/cpp20-and-above` branch to address this.
+
 ## Considerations
 
 If you're a novice looking to learn game development, this book and repo is probably not the best place to start, and you might be better off looking at resources for building games in Unreal Engine or Unity. This repo is mainly useful for professional and amateur game engine and graphics programmers wanting to learn how to work with DirectX 12. Needless to say, building a 3D game or rendering engine is _a lot of hard work_, and this book really only touches on the DX12 rendering aspect of such an engine, without touching on things like design, sound, gameplay, etc, so don't expect to master game development purely using this resource. 
