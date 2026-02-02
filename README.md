@@ -10,9 +10,7 @@ You'll need [Visual Studio 2026](https://visualstudio.microsoft.com/) with the _
 
 ## Changes
 
-All projects have been updated to use Visual Studio 2026 and retargeted to the latest Windows SDK. For convenience, an additional solution file AllProjects.sln has been added that includes all the projects.
-
-The code doesn't compile on MSVC C++20 standard and later modes due to the compiler rejecting passing pointers to temporaries in function calls. I'm working on fixing this in the `fix/cpp20-and-above` branch.
+All projects have been updated to use Visual Studio 2026 and retargeted to the latest Windows SDK. For convenience, an additional solution file AllProjects.sln has been added that includes all the projects. Additionally, the original code doesn't compile in C++20 and later standards due to MSVC rejecting passing pointers to temporaries as arguments to function calls. This has also been fixed. 
 
 ## Considerations
 
