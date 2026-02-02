@@ -65,8 +65,9 @@ void SobelFilter::Execute(ID3D12GraphicsCommandList* cmdList,
 	cmdList->SetComputeRootDescriptorTable(0, input);
 	cmdList->SetComputeRootDescriptorTable(2, mhGpuUav);
 
-	cmdList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(mOutput.Get(),
-		D3D12_RESOURCE_STATE_GENERIC_READ, D3D12_RESOURCE_STATE_UNORDERED_ACCESS));
+	auto transition = CD3DX12_RESOURCE_BARRIER::Transition(mOutput.Get(),
+		D3D12_RESOURCE_STATE_GENERIC_READ, D3D12_RESOURCE_STATE_UNORDERED_ACCESS);
+	cmdList->ResourceBarrier(1, &transition);
 
 	// How many groups do we need to dispatch to cover image, where each
 	// group covers 16x16 pixels.
@@ -74,8 +75,9 @@ void SobelFilter::Execute(ID3D12GraphicsCommandList* cmdList,
 	UINT numGroupsY = (UINT)ceilf(mHeight / 16.0f);
 	cmdList->Dispatch(numGroupsX, numGroupsY, 1);
 
-	cmdList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(mOutput.Get(),
-		D3D12_RESOURCE_STATE_UNORDERED_ACCESS, D3D12_RESOURCE_STATE_GENERIC_READ));
+	transition = CD3DX12_RESOURCE_BARRIER::Transition(mOutput.Get(),
+		D3D12_RESOURCE_STATE_UNORDERED_ACCESS, D3D12_RESOURCE_STATE_GENERIC_READ);
+	cmdList->ResourceBarrier(1, &transition);
 }
 
 void SobelFilter::BuildDescriptors()
@@ -119,8 +121,9 @@ void SobelFilter::BuildResource()
 	texDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 	texDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
 
+	auto heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
 	ThrowIfFailed(md3dDevice->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
+		&heapProps,
 		D3D12_HEAP_FLAG_NONE,
 		&texDesc,
 		D3D12_RESOURCE_STATE_GENERIC_READ,
