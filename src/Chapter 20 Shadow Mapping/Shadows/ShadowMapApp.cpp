@@ -340,15 +340,18 @@ void ShadowMapApp::Draw(const GameTimer& gt)
     mCommandList->RSSetScissorRects(1, &mScissorRect);
 
     // Indicate a state transition on the resource usage.
-	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
-		D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET));
+    auto transition = CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
+        D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+	mCommandList->ResourceBarrier(1, &transition);
 
     // Clear the back buffer and depth buffer.
     mCommandList->ClearRenderTargetView(CurrentBackBufferView(), Colors::LightSteelBlue, 0, nullptr);
     mCommandList->ClearDepthStencilView(DepthStencilView(), D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
 
     // Specify the buffers we are going to render to.
-    mCommandList->OMSetRenderTargets(1, &CurrentBackBufferView(), true, &DepthStencilView());
+	auto cbbv = CurrentBackBufferView();
+	auto dsv = DepthStencilView();
+    mCommandList->OMSetRenderTargets(1, &cbbv, true, &dsv);
 
 	auto passCB = mCurrFrameResource->PassCB->Resource();
 	mCommandList->SetGraphicsRootConstantBufferView(1, passCB->GetGPUVirtualAddress());
@@ -372,8 +375,9 @@ void ShadowMapApp::Draw(const GameTimer& gt)
 	DrawRenderItems(mCommandList.Get(), mRitemLayer[(int)RenderLayer::Sky]);
 
     // Indicate a state transition on the resource usage.
-	mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
-		D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT));
+    transition = CD3DX12_RESOURCE_BARRIER::Transition(CurrentBackBuffer(),
+        D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+	mCommandList->ResourceBarrier(1, &transition);
 
     // Done recording commands.
     ThrowIfFailed(mCommandList->Close());
@@ -547,9 +551,12 @@ void ShadowMapApp::UpdateMainPassCB(const GameTimer& gt)
 	XMMATRIX proj = mCamera.GetProj();
 
 	XMMATRIX viewProj = XMMatrixMultiply(view, proj);
-	XMMATRIX invView = XMMatrixInverse(&XMMatrixDeterminant(view), view);
-	XMMATRIX invProj = XMMatrixInverse(&XMMatrixDeterminant(proj), proj);
-	XMMATRIX invViewProj = XMMatrixInverse(&XMMatrixDeterminant(viewProj), viewProj);
+	auto viewDet = XMMatrixDeterminant(view);
+	auto projDet = XMMatrixDeterminant(proj);
+	XMMATRIX invView = XMMatrixInverse(&viewDet, view);
+	XMMATRIX invProj = XMMatrixInverse(&projDet, proj);
+	auto viewProjDet = XMMatrixDeterminant(viewProj);
+	XMMATRIX invViewProj = XMMatrixInverse(&viewProjDet, viewProj);
 
     XMMATRIX shadowTransform = XMLoadFloat4x4(&mShadowTransform);
 
@@ -585,9 +592,12 @@ void ShadowMapApp::UpdateShadowPassCB(const GameTimer& gt)
     XMMATRIX proj = XMLoadFloat4x4(&mLightProj);
 
     XMMATRIX viewProj = XMMatrixMultiply(view, proj);
-    XMMATRIX invView = XMMatrixInverse(&XMMatrixDeterminant(view), view);
-    XMMATRIX invProj = XMMatrixInverse(&XMMatrixDeterminant(proj), proj);
-    XMMATRIX invViewProj = XMMatrixInverse(&XMMatrixDeterminant(viewProj), viewProj);
+	auto viewDet = XMMatrixDeterminant(view);
+	auto projDet = XMMatrixDeterminant(proj);
+    XMMATRIX invView = XMMatrixInverse(&viewDet, view);
+    XMMATRIX invProj = XMMatrixInverse(&projDet, proj);
+	auto viewProjDet = XMMatrixDeterminant(viewProj);
+    XMMATRIX invViewProj = XMMatrixInverse(&viewProjDet, viewProj);
 
     UINT w = mShadowMap->Width();
     UINT h = mShadowMap->Height();
@@ -1373,8 +1383,10 @@ void ShadowMapApp::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std
     {
         auto ri = ritems[i];
 
-        cmdList->IASetVertexBuffers(0, 1, &ri->Geo->VertexBufferView());
-        cmdList->IASetIndexBuffer(&ri->Geo->IndexBufferView());
+        auto vbv = ri->Geo->VertexBufferView();
+		auto ibv = ri->Geo->IndexBufferView();
+        cmdList->IASetVertexBuffers(0, 1, &vbv);
+        cmdList->IASetIndexBuffer(&ibv);
         cmdList->IASetPrimitiveTopology(ri->PrimitiveType);
 
         D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = objectCB->GetGPUVirtualAddress() + ri->ObjCBIndex*objCBByteSize;
@@ -1387,12 +1399,15 @@ void ShadowMapApp::DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std
 
 void ShadowMapApp::DrawSceneToShadowMap()
 {
-    mCommandList->RSSetViewports(1, &mShadowMap->Viewport());
-    mCommandList->RSSetScissorRects(1, &mShadowMap->ScissorRect());
+	auto viewport = mShadowMap->Viewport();
+	auto scissorRect = mShadowMap->ScissorRect();
+    mCommandList->RSSetViewports(1, &viewport);
+    mCommandList->RSSetScissorRects(1, &scissorRect);
 
     // Change to DEPTH_WRITE.
-    mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(mShadowMap->Resource(),
-        D3D12_RESOURCE_STATE_GENERIC_READ, D3D12_RESOURCE_STATE_DEPTH_WRITE));
+    auto transition = CD3DX12_RESOURCE_BARRIER::Transition(mShadowMap->Resource(),
+        D3D12_RESOURCE_STATE_GENERIC_READ, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+    mCommandList->ResourceBarrier(1, &transition);
 
     UINT passCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(PassConstants));
 
@@ -1403,7 +1418,8 @@ void ShadowMapApp::DrawSceneToShadowMap()
     // Set null render target because we are only going to draw to
     // depth buffer.  Setting a null render target will disable color writes.
     // Note the active PSO also must specify a render target count of 0.
-    mCommandList->OMSetRenderTargets(0, nullptr, false, &mShadowMap->Dsv());
+	auto dsv = mShadowMap->Dsv();
+    mCommandList->OMSetRenderTargets(0, nullptr, false, &dsv);
 
     // Bind the pass constant buffer for the shadow map pass.
     auto passCB = mCurrFrameResource->PassCB->Resource();
@@ -1415,8 +1431,9 @@ void ShadowMapApp::DrawSceneToShadowMap()
     DrawRenderItems(mCommandList.Get(), mRitemLayer[(int)RenderLayer::Opaque]);
 
     // Change back to GENERIC_READ so we can read the texture in a shader.
-    mCommandList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(mShadowMap->Resource(),
-        D3D12_RESOURCE_STATE_DEPTH_WRITE, D3D12_RESOURCE_STATE_GENERIC_READ));
+    transition = CD3DX12_RESOURCE_BARRIER::Transition(mShadowMap->Resource(),
+        D3D12_RESOURCE_STATE_DEPTH_WRITE, D3D12_RESOURCE_STATE_GENERIC_READ);
+    mCommandList->ResourceBarrier(1, &transition);
 }
 
 std::array<const CD3DX12_STATIC_SAMPLER_DESC, 7> ShadowMapApp::GetStaticSamplers()
