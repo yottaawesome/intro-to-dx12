@@ -4,6 +4,8 @@
 
 This is an unofficial fork of the [sample code repo]((https://github.com/d3dcoder/d3d12book)) for [Frank D. Luna's](http://www.d3dcoder.net/default.htm) excellent book [Introduction to 3D Game Programming with DirectX 12](http://www.d3dcoder.net/d3d12.htm). No representation is made that the source code belongs to me, it's simply reproduced here for convenience (so you don't need to dig up the physical media of the book) and remains the copyright of Frank D. Luna.
 
+Note that this is for the first edition of the book; did you know there's [a second edition](https://www.d3dcoder.net/d3d12_v2.htm)?
+
 ## Building
 
 You'll need [Visual Studio 2026](https://visualstudio.microsoft.com/) with the _Desktop development with C++_ and _Game development with C++_ Visual Studio workloads. Once you've satisfied these requirements, you should be able to open any of the included SLN files, build, and run the sample apps. Obviously, you also need to have a GPU that supports DirectX 12 for the samples to work correctly.
